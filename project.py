@@ -144,7 +144,7 @@ def makePageRankDict(sentences, document):
     for sentence in sentences:
         sent_vec = [0.0] * len(words)
         for idx, word in enumerate(words):
-            if word in sentence:
+            if word in sentence and sent_vec[idx] in lookup:
                 sent_vec[idx] = lookup[word.lower()]
         vecDict[sentence] = sent_vec
     return vecDict
