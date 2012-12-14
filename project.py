@@ -77,6 +77,78 @@ def topic_word_sum(document):
         text += str(summ) + " "
     return text 
 
+def lex_rank_sum(document):
+    sentences = sent_tokenize(document)
+    adjList = dict()
+    currRank = dict()
+    vectDict = makePageRankDict(sentences, document)
+    edge_threshold = 0.1
+
+    for idx,sent in enumerate(sentences):
+        adjList[idx] = list()
+        currRank[idx] = 1.0
+
+    # Construct the Graph
+    for idx,sent in enumerate(sentences):
+        for idx2,sent2 in enumerate(sentences):
+            if sent != sent2:
+                sim = cosine_similarity(vectDict[sent], vectDict[sent2])
+                if sim > edge_threshold:
+                    adjList[idx].append(idx2)
+
+    # Lex Rank
+    while True:
+        nextRank = dict()
+        for sent,edges in adjList.iteritems():
+            for sent2 in edges:
+                nextRank[sent2] += float(currRank[sent]) / float(len(edges))
+        if notChanging(currRank, nextRank):
+            break
+        else:
+            currRank = nextRank
+
+    sorted_sents = [sentences[x] for x in sorted(currRank.keys(), key=lambda x: currRank[x], reverse=True)]
+
+    summary = list()
+    sumLength = 0
+    for sent in sorted_sents:
+        if valid(sent, summary, vectDict):
+            sumLength += len(word_tokenize(sent))
+            # break if this pushes us over the threshold
+            if sumLength > 100:
+                break
+            # else, append and continue
+            summary.append(sent)
+    # construct text with sentences
+    text = ""
+    for summ in summary:
+        text += str(summ) + " "
+    return text 
+
+def notChanging(currRank, nextRank):
+    threshold = 0.001
+    for key,value in currRank.iteritems():
+        if nextRank[key] - value > threshold:
+            return False
+    return True
+
+def makePageRankDict(sentences, document):
+    vecDict = dict()
+    lookup = dict()
+    for line in open('bgIdfValues.unstemmed.txt'):
+        data = line.split(" ")
+        if len(data) == 1:
+            continue
+        lookup[data[0]] = data[1]
+    words = word_tokenize(document)
+    for sentence in sentences:
+        sent_vec = [0.0] * len(words)
+        for idx, word in enumerate(words):
+            if word in sentence:
+                sent_vec[idx] = lookup[word.lower()]
+        vecDict[sentence] = sent_vec
+    return vecDict
+
 def makeVectDict(sentences, document):
     vectDict = dict()
     words = word_tokenize(document)
