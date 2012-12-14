@@ -36,7 +36,7 @@ def centrality_sum(document):
     for summ in summary:
         text += str(summ) + " "
     return text
-"""            
+           
 def topic_word_sum(document):
     # load topic words
     topicwords = load_topic_words('topicwords.ts')
@@ -56,11 +56,14 @@ def topic_word_sum(document):
         # option 2
         #diction[sent] = len(words1) / len(word_tokenize(sent))
 
+    # sort sentences in decreasing order
+    sorted_sents = sorted(diction.keys(), key=lambda x: diction[x], reverse=True)
+    
     # make vectDict
     vectDict = makeVectDict(sentences, document)
     summary = list()
     sumLength = 0
-    for sent in sentences:
+    for sent in sorted_sents:
         if valid(sent, summary, vectDict):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
@@ -86,7 +89,7 @@ def makeVectDict(sentences, document):
                 sent_vec[idx] = 1
         vectDict[sentence] = sent_vec
     return vectDict
-"""
+
 def valid(sent, summary, vectDict):
     """checks if this sentence is valid with the current summary.
     Looks at sentence length and repetition
