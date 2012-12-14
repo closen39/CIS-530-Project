@@ -50,7 +50,7 @@ def topic_word_sum(document):
         words1 = [x for x in word_tokenize(sent) if x in topicwords.keys()]
         words2 = [x for x in word_tokenize(sent) if x not in stoplist]
         # option 3
-        diction[sent] = float(len(words1) / len(words2))
+        diction[sent] = float(len(words1)) / float(len(words2))
         # option 1
         #diction[sent] = len(words1)
         # option 2
@@ -169,7 +169,7 @@ def load_topic_words(topic_file):
 
 if __name__ == '__main__':
     files = get_all_files('input/d30001t_raw')
-    outfile = open('rouge/summaries/summary00.txt', 'w')
+    outfile = open('output/summary00.txt', 'w')
     for file in files:
         # summary = centrality_sum(open(file).read())
         summary = topic_word_sum(open(file).read())
