@@ -19,13 +19,13 @@ The performance of our Centrality Summarizer as measured by ROUGE is below. This
 ---------------------------------------------
 ./ROUGE-1.5.5.pl -c 95 -r 1000 -n 2 -m -a -l 100 -x config_test.xml 
 ---------------------------------------------
-summaries ROUGE-1 Average_R: 0.44472 (95%-conf.int. 0.44472 - 0.44472)
-summaries ROUGE-1 Average_P: 0.43510 (95%-conf.int. 0.43510 - 0.43510)
-summaries ROUGE-1 Average_F: 0.43986 (95%-conf.int. 0.43986 - 0.43986)
+summaries ROUGE-1 Average_R: 0.44226 (95%-conf.int. 0.44226 - 0.44226)
+summaries ROUGE-1 Average_P: 0.43689 (95%-conf.int. 0.43689 - 0.43689)
+summaries ROUGE-1 Average_F: 0.43956 (95%-conf.int. 0.43956 - 0.43956)
 ---------------------------------------------
-summaries ROUGE-2 Average_R: 0.10422 (95%-conf.int. 0.10422 - 0.10422)
-summaries ROUGE-2 Average_P: 0.10194 (95%-conf.int. 0.10194 - 0.10194)
-summaries ROUGE-2 Average_F: 0.10307 (95%-conf.int. 0.10307 - 0.10307)
+summaries ROUGE-2 Average_R: 0.11414 (95%-conf.int. 0.11414 - 0.11414)
+summaries ROUGE-2 Average_P: 0.11275 (95%-conf.int. 0.11275 - 0.11275)
+summaries ROUGE-2 Average_F: 0.11344 (95%-conf.int. 0.11344 - 0.11344)
 
 
 Topic-Word Summarizer
