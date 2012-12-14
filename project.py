@@ -23,7 +23,7 @@ def centrality_sum(document):
     # create summary based on validity and a threshold
     summary = list()
     sumLength = 0
-    for sent in sentences:
+    for sent in sorted_sents:
         if valid(sent, summary, vectDict):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
@@ -36,9 +36,57 @@ def centrality_sum(document):
     for summ in summary:
         text += str(summ) + " "
     return text
-            
+"""            
+def topic_word_sum(document):
+    # load topic words
+    topicwords = load_topic_words('topicwords.ts')
+    # read in stoplist file
+    stoplistfile = open('stoplist.txt')
+    stoplist = [line.strip() for line in stoplistfile]
+    sentences = sent_tokenize(document)
+    # dict of sentence -> TWeight
+    diction = dict()
+    for sent in sentences:
+        words1 = [x for x in word_tokenize(sent) if x in topicwords.keys()]
+        words2 = [x for x in word_tokenize(sent) if x not in stoplist]
+        # option 3
+        diction[sent] = len(words1) / len(words2)
+        # option 1
+        #diction[sent] = len(words1)
+        # option 2
+        #diction[sent] = len(words1) / len(word_tokenize(sent))
 
+    # make vectDict
+    vectDict = makeVectDict(sentences, document)
+    summary = list()
+    sumLength = 0
+    for sent in sentences:
+        if valid(sent, summary, vectDict):
+            sumLength += len(word_tokenize(sent))
+            # break if this pushes us over the threshold
+            if sumLength > 100:
+                break
+            # else, append and continue
+            summary.append(sent)
+    # construct text with sentences
+    text = ""
+    for summ in summary:
+        text += str(summ) + " "
+    return text 
 
+def makeVectDict(sentences, document):
+    vectDict = dict()
+    words = word_tokenize(document)
+    # make vector for sentence
+    for sentence in sentences:
+        sent_vec = [0] * len(words)
+        for idx, word in enumerate(words):
+            if word in sentence:
+                # binary representation for now
+                sent_vec[idx] = 1
+        vectDict[sentence] = sent_vec
+    return vectDict
+"""
 def valid(sent, summary, vectDict):
     """checks if this sentence is valid with the current summary.
     Looks at sentence length and repetition
@@ -106,6 +154,13 @@ def get_all_files(directory):
     files = PlaintextCorpusReader(directory, '.*')
     return [directory + "/" + x for x in files.fileids()]
 
+def load_topic_words(topic_file):
+    dict1 = {}
+    file1 = open(topic_file)
+    for line in file1:
+        x = line.strip().split(' ')
+        dict1[x[0]] = float(x[1])
+    return dict1
 
 
 if __name__ == '__main__':
