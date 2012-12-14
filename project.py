@@ -169,7 +169,7 @@ def load_topic_words(topic_file):
 
 if __name__ == '__main__':
     files = get_all_files('input/d30001t_raw')
-    outfile = open('output/summary00.txt', 'w')
+    outfile = open('rouge/summaries/summary00.txt', 'w')
     for file in files:
         # summary = centrality_sum(open(file).read())
         summary = topic_word_sum(open(file).read())
