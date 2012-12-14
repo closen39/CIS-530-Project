@@ -2,3 +2,5 @@
 *.log
 *.aux
 .DS*
+writeup.pdf
+*.pyc
