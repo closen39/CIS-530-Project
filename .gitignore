@@ -1,1 +1,4 @@
 /rouge/sample_output/*
+*.log
+*.aux
+.DS*
