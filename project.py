@@ -1,6 +1,7 @@
 # Jason Mow (jmow@seas.upenn.edu)
 # Nate Close (closen@seas.upenn.edu)
 
+from nltk.corpus import PlaintextCorpusReader
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from math import sqrt
@@ -99,8 +100,14 @@ def cosine_similarity(x, y):
         return 0.0
     return prodCross / (sqrt(xSquare) * sqrt(ySquare))
 
+def get_all_files(directory):
+    files = PlaintextCorpusReader(directory, '.*')
+    return [directory + "/" + x for x in files.fileids()]
+
 if __name__ == '__main__':
-    outfile = open('summary00.txt', 'w')
-    summary = centrality_sum(open('APW19981016.0240.txt').read())
-    outfile.write(summary)
-    outfile.close()
+    files = get_all_files('input/d30001t_raw')
+    for idx,file in enumerate(files):
+        outfile = open('output/summary0' + str(idx) + '.txt', 'w')
+        summary = centrality_sum(open(file).read())
+        outfile.write(summary)
+        outfile.close()
