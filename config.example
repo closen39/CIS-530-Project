@@ -2,7 +2,7 @@
 stopFilePath = stoplist-smart-sys.txt
 performStemming = N
 backgroundCorpusFreqCounts = bgCounts-Giga.txt
-topicWordCutoff = 0.1
+topicWordCutoff = 1.0
 
 ==== Directory to compute topic words on ====
 
@@ -10,4 +10,4 @@ inputDir = /home1/c/cis530/final_project/input/d30001t_raw/
 
 ==== Output File ====
 
-outputFile = /home1/j/jmow/topicwords.ts
+outputFile = /home1/j/jmow/school/cis530/project/topicwords.ts
