@@ -7,7 +7,7 @@ from math import sqrt
 
 def centrality_sum(document):
     # get sentences of document
-    sentences = sent_tokenize(document.lower())
+    sentences = sent_tokenize(document)
     diction = dict()
     # keeps track of vectors for each sentence
     vectDict = dict()
@@ -30,7 +30,11 @@ def centrality_sum(document):
                 break
             # else, append and continue
             summary.append(sent)
-    return summary
+    # construct text with sentences
+    text = ""
+    for summ in summary:
+        text += str(summ) + " "
+    return text
             
 
 
@@ -48,7 +52,7 @@ def valid(sent, summary, vectDict):
     minLength = 15
     maxLength = 50
     words = word_tokenize(sent)
-    if len(words) > maxLength and len(words) < minLength:
+    if len(words) > maxLength or len(words) < minLength:
         return False
     # else, must be valid
     print 'sent is valid', sent
@@ -59,8 +63,8 @@ def valid(sent, summary, vectDict):
 def get_sim(sentence, doc):
     """ gets the centrality of sentence with every sentence in doc
     """
-    sents = sent_tokenize(doc.lower())
-    words = word_tokenize(doc.lower())
+    sents = sent_tokenize(doc)
+    words = word_tokenize(doc)
     # make vector for sentence
     sent_vec = [0] * len(words)
     for idx, word in enumerate(words):
