@@ -50,7 +50,7 @@ def topic_word_sum(document):
         words1 = [x for x in word_tokenize(sent) if x in topicwords.keys()]
         words2 = [x for x in word_tokenize(sent) if x not in stoplist]
         # option 3
-        diction[sent] = len(words1) / len(words2)
+        diction[sent] = float(len(words1) / len(words2))
         # option 1
         #diction[sent] = len(words1)
         # option 2
