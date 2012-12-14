@@ -244,6 +244,7 @@ if __name__ == '__main__':
     outfile = open('rouge/summaries/summary00.txt', 'w')
     for file in files:
         # summary = centrality_sum(open(file).read())
-        summary = topic_word_sum(open(file).read())
+        # summary = topic_word_sum(open(file).read())
+        summary = lex_rank_sum(open(file).read())
         outfile.write(summary + "\n")
     outfile.close()
