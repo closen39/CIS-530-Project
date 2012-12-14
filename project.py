@@ -103,6 +103,7 @@ def cosine_similarity(x, y):
 
 
 def get_all_files(directory):
+    """ from hw4 """
     files = PlaintextCorpusReader(directory, '.*')
     return [directory + "/" + x for x in files.fileids()]
 

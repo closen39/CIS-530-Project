@@ -5,7 +5,7 @@ Jason Mow (jmow@seas.upenn.edu)
 
 Centrality Summarizer
 ---------------------
-The Centrality Summarizer had the following parameters to configure it's functionality:
+The Centrality Summarizer has the following parameters to configure it's functionality:
 - Sentence Vector Feature Weight Representation
 - Similarity Comparison Approach
 - Sentence Length Limits (short and long)
@@ -27,3 +27,12 @@ summaries ROUGE-2 Average_R: 0.10422 (95%-conf.int. 0.10422 - 0.10422)
 summaries ROUGE-2 Average_P: 0.10194 (95%-conf.int. 0.10194 - 0.10194)
 summaries ROUGE-2 Average_F: 0.10307 (95%-conf.int. 0.10307 - 0.10307)
 
+
+Topic-Word Summarizer
+---------------------
+The Topic-Word Summarizer has the following parameters to configure it's functionality:
+- Sentence Vector Feature Weight Representation
+- Sentence Score Normalization
+- Topic Word Cutoff
+- Sentence Length Limits (short and long)
+- Redundancy Removal Approach
