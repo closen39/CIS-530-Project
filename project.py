@@ -100,14 +100,18 @@ def cosine_similarity(x, y):
         return 0.0
     return prodCross / (sqrt(xSquare) * sqrt(ySquare))
 
+
+
 def get_all_files(directory):
     files = PlaintextCorpusReader(directory, '.*')
     return [directory + "/" + x for x in files.fileids()]
 
+
+
 if __name__ == '__main__':
     files = get_all_files('input/d30001t_raw')
-    for idx,file in enumerate(files):
-        outfile = open('output/summary0' + str(idx) + '.txt', 'w')
+    outfile = open('output/summary00.txt', 'w')
+    for file in files:
         summary = centrality_sum(open(file).read())
-        outfile.write(summary)
-        outfile.close()
+        outfile.write(summary + "\n")
+    outfile.close()

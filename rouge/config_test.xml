@@ -18,7 +18,7 @@ models
 <M ID="D">D30001.M.100.T.D</M>
 </MODELS>
 </EVAL>
-<EVAL ID="2">
+<!-- <EVAL ID="2">
 <PEER-ROOT>
 summaries
 </PEER-ROOT>
@@ -188,5 +188,5 @@ models
 <M ID="C">D30015.M.100.T.E</M>
 <M ID="D">D30015.M.100.T.H</M>
 </MODELS>
-</EVAL>
+</EVAL> -->
 </ROUGE-EVAL>
