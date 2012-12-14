@@ -2,7 +2,7 @@
 stopFilePath = stoplist-smart-sys.txt
 performStemming = N
 backgroundCorpusFreqCounts = bgCounts-Giga.txt
-topicWordCutoff = 10.0
+topicWordCutoff = 15.0
 
 ==== Directory to compute topic words on ====
 
