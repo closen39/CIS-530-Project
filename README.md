@@ -5,6 +5,12 @@ Jason Mow (jmow@seas.upenn.edu)
 
 Centrality Summarizer
 ---------------------
+The Centrality Summarizer had the following parameters to configure it's functionality:
+- Sentence Vector Feature Weight Representation
+- Similarity Comparison Approach
+- Sentence Length Limits (short and long)
+- Redundancy Removal Approach
+
 We chose a binary representation for sentence vector feature weight. We did this because it was the simplest to compute and yielded strong results. Our similarity approach was to use cosine similarity on the sentence vectors.
 
 Our sentence length limit was between 15 and 50 words, tokenized by NLTK. We mitigated redundancy by rejecting any sentences with a cosine similarity greater than 0.75 with any sentence already in the summary.
