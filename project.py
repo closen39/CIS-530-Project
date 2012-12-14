@@ -43,7 +43,7 @@ def valid(sent, summary, vectDict):
     Looks at sentence length and repetition
     """
     # check validity
-    threshold = 0.6
+    threshold = 0.75
     for sentence in summary:
         #print cosine_similarity(vectDict[sent], vectDict[sentence])
         if cosine_similarity(vectDict[sent], vectDict[sentence]) > threshold:
