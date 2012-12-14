@@ -45,7 +45,7 @@ def valid(sent, summary, vectDict):
     # check validity
     threshold = 0.6
     for sentence in summary:
-        print cosine_similarity(vectDict[sent], vectDict[sentence])
+        #print cosine_similarity(vectDict[sent], vectDict[sentence])
         if cosine_similarity(vectDict[sent], vectDict[sentence]) > threshold:
             return False
     # check length of sentence
@@ -55,7 +55,7 @@ def valid(sent, summary, vectDict):
     if len(words) > maxLength or len(words) < minLength:
         return False
     # else, must be valid
-    print 'sent is valid', sent
+    #print 'sent is valid', sent
     return True
 
 
@@ -98,3 +98,9 @@ def cosine_similarity(x, y):
     if (xSquare == 0 or ySquare == 0):
         return 0.0
     return prodCross / (sqrt(xSquare) * sqrt(ySquare))
+
+if __name__ == '__main__':
+    outfile = open('summary00.txt', 'w')
+    summary = centrality_sum(open('APW19981016.0240.txt').read())
+    outfile.write(summary)
+    outfile.close()
