@@ -127,7 +127,7 @@ def lex_rank_sum(document):
     return text 
 
 def notChanging(currRank, nextRank):
-    threshold = 0.001
+    threshold = 0.0001
     for key,value in currRank.iteritems():
         if nextRank[key] - value > threshold:
             return False
