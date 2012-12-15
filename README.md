@@ -102,6 +102,16 @@ summaries ROUGE-2 Average_R: 0.10918 (95%-conf.int. 0.10918 - 0.10918)
 summaries ROUGE-2 Average_P: 0.10680 (95%-conf.int. 0.10680 - 0.10680)
 summaries ROUGE-2 Average_F: 0.10798 (95%-conf.int. 0.10798 - 0.10798)
 
+TFIDF - 0.5
+---------------------------------------------
+summaries ROUGE-1 Average_R: 0.39558 (95%-conf.int. 0.39558 - 0.39558)
+summaries ROUGE-1 Average_P: 0.39461 (95%-conf.int. 0.39461 - 0.39461)
+summaries ROUGE-1 Average_F: 0.39509 (95%-conf.int. 0.39509 - 0.39509)
+---------------------------------------------
+summaries ROUGE-2 Average_R: 0.09429 (95%-conf.int. 0.09429 - 0.09429)
+summaries ROUGE-2 Average_P: 0.09406 (95%-conf.int. 0.09406 - 0.09406)
+summaries ROUGE-2 Average_F: 0.09417 (95%-conf.int. 0.09417 - 0.09417)
+
 BINARY - 0.1
 ---------------------------------------------
 summaries ROUGE-1 Average_R: 0.44472 (95%-conf.int. 0.44472 - 0.44472)
