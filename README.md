@@ -110,3 +110,26 @@ summaries ROUGE-1 Average_F: 0.42358 (95%-conf.int. 0.42358 - 0.42358)
 summaries ROUGE-2 Average_R: 0.11911 (95%-conf.int. 0.11911 - 0.11911)
 summaries ROUGE-2 Average_P: 0.11429 (95%-conf.int. 0.11429 - 0.11429)
 summaries ROUGE-2 Average_F: 0.11665 (95%-conf.int. 0.11665 - 0.11665)
+
+
+These are the results when run on the full corpus (50 directories, 50 summaries)
+
+Centrality Summarizer
+---------------------
+summaries ROUGE-1 Average_R: 0.30704 (95%-conf.int. 0.29517 - 0.32003)
+summaries ROUGE-1 Average_P: 0.30677 (95%-conf.int. 0.29494 - 0.31955)
+summaries ROUGE-1 Average_F: 0.30687 (95%-conf.int. 0.29515 - 0.31968)
+---------------------------------------------
+summaries ROUGE-2 Average_R: 0.04664 (95%-conf.int. 0.04004 - 0.05357)
+summaries ROUGE-2 Average_P: 0.04651 (95%-conf.int. 0.04001 - 0.05331)
+summaries ROUGE-2 Average_F: 0.04657 (95%-conf.int. 0.04002 - 0.05344)
+
+Topic Word Summarizer
+---------------------
+summaries ROUGE-1 Average_R: 0.29869 (95%-conf.int. 0.28787 - 0.31173)
+summaries ROUGE-1 Average_P: 0.29664 (95%-conf.int. 0.28636 - 0.30836)
+summaries ROUGE-1 Average_F: 0.29762 (95%-conf.int. 0.28713 - 0.31005)
+---------------------------------------------
+summaries ROUGE-2 Average_R: 0.04404 (95%-conf.int. 0.03749 - 0.05051)
+summaries ROUGE-2 Average_P: 0.04357 (95%-conf.int. 0.03710 - 0.04991)
+summaries ROUGE-2 Average_F: 0.04380 (95%-conf.int. 0.03729 - 0.05020)
