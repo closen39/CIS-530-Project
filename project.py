@@ -139,7 +139,7 @@ def makePageRankDict(sentences, document):
         data = line.split(" ")
         if len(data) == 1:
             continue
-        lookup[data[0]] = data[1]
+        lookup[data[0]] = float(data[1])
     words = word_tokenize(document)
     for sentence in sentences:
         sent_vec = [0.0] * len(words)
