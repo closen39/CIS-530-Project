@@ -83,7 +83,7 @@ def lex_rank_sum(document):
     currRank = dict()
     vectDict = makePageRankDict(sentences, document)
     # vectDict = makeVectDict(sentences, document)
-    edge_threshold = 0.05
+    edge_threshold = 0.01
 
     for idx,sent in enumerate(sentences):
         adjList[idx] = list()

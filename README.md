@@ -92,6 +92,16 @@ The LexPageRank Summarizer has the following parameters to configure it's functi
 - Sentence Length Limits (short and long)
 - Redundancy Removal Approach
 
+TFIDF - 0.05
+---------------------------------------------
+summaries ROUGE-1 Average_R: 0.39803 (95%-conf.int. 0.39803 - 0.39803)
+summaries ROUGE-1 Average_P: 0.37850 (95%-conf.int. 0.37850 - 0.37850)
+summaries ROUGE-1 Average_F: 0.38802 (95%-conf.int. 0.38802 - 0.38802)
+---------------------------------------------
+summaries ROUGE-2 Average_R: 0.11166 (95%-conf.int. 0.11166 - 0.11166)
+summaries ROUGE-2 Average_P: 0.10613 (95%-conf.int. 0.10613 - 0.10613)
+summaries ROUGE-2 Average_F: 0.10882 (95%-conf.int. 0.10882 - 0.10882)
+
 TFIDF - 0.1
 ---------------------------------------------
 summaries ROUGE-1 Average_R: 0.40049 (95%-conf.int. 0.40049 - 0.40049)
