@@ -87,12 +87,21 @@ summaries ROUGE-2 Average_F: 0.10657 (95%-conf.int. 0.10657 - 0.10657)
 LexPageRank Summarizer
 ---------------------
 The LexPageRank Summarizer has the following parameters to configure it's functionality:
-- Edge Similarity Threshold - 0.01
+- Edge Similarity Threshold
 - LexRank End Criteria - < 0.001 change
 - Sentence Length Limits (short and long)
 - Redundancy Removal Approach
 
-TFIDF - 0.01
+For the LexRank summarizer, we chose to use TF-IDF representation over binary representation. This produced more accurate vectors and better results from ROUGE in the summarization.
+
+For edge similarity threshold, we chose the value of 0.01. This yielded very strong results from ROUGE, much stronger than the results from values of 0.1, 0.2, and 0.3 as suggested in the text.
+
+Our LexRank End Criteria was set such that the iteration would end if all values changed less than 0.001 between iterations. This was a good medium between performance and getting reasonable results. Also, the results did not change much as the threshold was decreased further.
+
+Our sentence length limit was between 15 and 50 words, tokenized by NLTK. We mitigated redundancy by rejecting any sentences with a cosine similarity greater than 0.75 with any sentence already in the summary.
+
+The performance of our LexRank Summarizer as measured by ROUGE is below. This measurement was made by summarizing only the texts in the directory 'input/d30001t_raw'.
+
 ---------------------------------------------
 summaries ROUGE-1 Average_R: 0.43243 (95%-conf.int. 0.43243 - 0.43243)
 summaries ROUGE-1 Average_P: 0.41509 (95%-conf.int. 0.41509 - 0.41509)
