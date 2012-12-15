@@ -240,11 +240,36 @@ def load_topic_words(topic_file):
 
 
 if __name__ == '__main__':
-    files = get_all_files('input/d30001t_raw')
-    outfile = open('rouge/summaries/summary00.txt', 'w')
-    for file in files:
-        # summary = centrality_sum(open(file).read())
-        # summary = topic_word_sum(open(file).read())
-        summary = lex_rank_sum(open(file).read())
-        outfile.write(summary + "\n")
-    outfile.close()
+    filepaths = ['input/d30001t_raw', 'input/d30002t_raw', 'input/d30003t_raw', 'input/d30005t_raw',
+    'input/d30006t_raw', 'input/d30007t_raw', 'input/d30008t_raw', 'input/d30010t_raw', 'input/d30011t_raw', 
+    'input/d30015t_raw', 'input/d30017t_raw', 'input/d30020t_raw', 'input/d30022t_raw', 'input/d30024t_raw',
+    'input/d30026t_raw', 'input/d30027t_raw', 'input/d30028t_raw', 'input/d30029t_raw', 'input/d30031t_raw',
+    'input/d30033t_raw', 'input/d30034t_raw', 'input/d30036t_raw', 'input/d30037t_raw', 'input/d30038t_raw',
+    'input/d30040t_raw', 'input/d30042t_raw', 'input/d30044t_raw', 'input/d30045t_raw', 'input/d30046t_raw',
+    'input/d30047t_raw', 'input/d30048t_raw', 'input/d30049t_raw', 'input/d30050t_raw', 'input/d30051t_raw',
+    'input/d30053t_raw', 'input/d30055t_raw', 'input/d30056t_raw', 'input/d30059t_raw', 'input/d31001t_raw',
+    'input/d31008t_raw', 'input/d31009t_raw', 'input/d31013t_raw', 'input/d31022t_raw', 'input/d31026t_raw',
+    'input/d31031t_raw', 'input/d31032t_raw', 'input/d31033t_raw', 'input/d31038t_raw', 'input/d31043t_raw',
+    'input/d31050t_raw']
+    for idx, path in enumerate(filepaths):
+        files = get_all_files(path)
+        num = "0" + str(idx)
+        if idx > 9:
+            num = idx
+        outfile = open('rouge/summaries/summary' + str(num) + '.txt', 'w')
+        for file in files:
+            summary = centrality_sum(open(file).read())
+            # summary = topic_word_sum(open(file).read())
+            # summary = lex_rank_sum(open(file).read())
+            outfile.write(summary + "\n")
+        outfile.close()
+
+
+        # files = get_all_files('input/d30001t_raw')
+        # outfile = open('rouge/summaries/summary00.txt', 'w')
+        # for file in files:
+        #     # summary = centrality_sum(open(file).read())
+        #     # summary = topic_word_sum(open(file).read())
+        #     summary = lex_rank_sum(open(file).read())
+        #     outfile.write(summary + "\n")
+        # outfile.close()
