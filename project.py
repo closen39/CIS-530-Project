@@ -98,7 +98,7 @@ def lex_rank_sum(document):
 
     # Lex Rank
     while True:
-        nextRank = dict()
+        nextRank = {i:0.0 for i in currRank.keys()}
         for sent,edges in adjList.iteritems():
             for sent2 in edges:
                 nextRank[sent2] += float(currRank[sent]) / float(len(edges))
