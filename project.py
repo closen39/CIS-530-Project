@@ -113,7 +113,7 @@ def lex_rank_sum(document):
     summary = list()
     sumLength = 0
     for sent in sorted_sents:
-        if valid(sent, summary, vectDict, 0.5):
+        if valid(sent, summary, vectDict, 0.85):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
             if sumLength > 100:
