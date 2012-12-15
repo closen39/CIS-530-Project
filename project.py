@@ -24,7 +24,7 @@ def centrality_sum(document):
     summary = list()
     sumLength = 0
     for sent in sorted_sents:
-        if valid(sent, summary, vectDict):
+        if valid(sent, summary, vectDict, 0.75):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
             if sumLength > 100:
@@ -64,7 +64,7 @@ def topic_word_sum(document):
     summary = list()
     sumLength = 0
     for sent in sorted_sents:
-        if valid(sent, summary, vectDict):
+        if valid(sent, summary, vectDict, 0.75):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
             if sumLength > 100:
@@ -113,7 +113,7 @@ def lex_rank_sum(document):
     summary = list()
     sumLength = 0
     for sent in sorted_sents:
-        if valid(sent, summary, vectDict):
+        if valid(sent, summary, vectDict, 0.5):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
             if sumLength > 100:
@@ -127,7 +127,7 @@ def lex_rank_sum(document):
     return text 
 
 def notChanging(currRank, nextRank):
-    threshold = 0.0001
+    threshold = 0.001
     for key,value in currRank.iteritems():
         if nextRank[key] - value > threshold:
             return False
@@ -163,12 +163,11 @@ def makeVectDict(sentences, document):
         vectDict[sentence] = sent_vec
     return vectDict
 
-def valid(sent, summary, vectDict):
+def valid(sent, summary, vectDict, threshold):
     """checks if this sentence is valid with the current summary.
     Looks at sentence length and repetition
     """
     # check validity
-    threshold = 0.75
     for sentence in summary:
         #print cosine_similarity(vectDict[sent], vectDict[sentence])
         if cosine_similarity(vectDict[sent], vectDict[sentence]) > threshold:

@@ -87,8 +87,8 @@ summaries ROUGE-2 Average_F: 0.10657 (95%-conf.int. 0.10657 - 0.10657)
 LexPageRank Summarizer
 ---------------------
 The LexPageRank Summarizer has the following parameters to configure it's functionality:
-- Edge Similarity Threshold
-- LexRank End Criteria
+- Edge Similarity Threshold - 0.01
+- LexRank End Criteria - < 0.001 change
 - Sentence Length Limits (short and long)
 - Redundancy Removal Approach
 
@@ -101,43 +101,3 @@ summaries ROUGE-1 Average_F: 0.42358 (95%-conf.int. 0.42358 - 0.42358)
 summaries ROUGE-2 Average_R: 0.11911 (95%-conf.int. 0.11911 - 0.11911)
 summaries ROUGE-2 Average_P: 0.11429 (95%-conf.int. 0.11429 - 0.11429)
 summaries ROUGE-2 Average_F: 0.11665 (95%-conf.int. 0.11665 - 0.11665)
-
-TFIDF - 0.05
----------------------------------------------
-summaries ROUGE-1 Average_R: 0.39803 (95%-conf.int. 0.39803 - 0.39803)
-summaries ROUGE-1 Average_P: 0.37850 (95%-conf.int. 0.37850 - 0.37850)
-summaries ROUGE-1 Average_F: 0.38802 (95%-conf.int. 0.38802 - 0.38802)
----------------------------------------------
-summaries ROUGE-2 Average_R: 0.11166 (95%-conf.int. 0.11166 - 0.11166)
-summaries ROUGE-2 Average_P: 0.10613 (95%-conf.int. 0.10613 - 0.10613)
-summaries ROUGE-2 Average_F: 0.10882 (95%-conf.int. 0.10882 - 0.10882)
-
-TFIDF - 0.1
----------------------------------------------
-summaries ROUGE-1 Average_R: 0.40049 (95%-conf.int. 0.40049 - 0.40049)
-summaries ROUGE-1 Average_P: 0.39183 (95%-conf.int. 0.39183 - 0.39183)
-summaries ROUGE-1 Average_F: 0.39611 (95%-conf.int. 0.39611 - 0.39611)
----------------------------------------------
-summaries ROUGE-2 Average_R: 0.10918 (95%-conf.int. 0.10918 - 0.10918)
-summaries ROUGE-2 Average_P: 0.10680 (95%-conf.int. 0.10680 - 0.10680)
-summaries ROUGE-2 Average_F: 0.10798 (95%-conf.int. 0.10798 - 0.10798)
-
-TFIDF - 0.5
----------------------------------------------
-summaries ROUGE-1 Average_R: 0.39558 (95%-conf.int. 0.39558 - 0.39558)
-summaries ROUGE-1 Average_P: 0.39461 (95%-conf.int. 0.39461 - 0.39461)
-summaries ROUGE-1 Average_F: 0.39509 (95%-conf.int. 0.39509 - 0.39509)
----------------------------------------------
-summaries ROUGE-2 Average_R: 0.09429 (95%-conf.int. 0.09429 - 0.09429)
-summaries ROUGE-2 Average_P: 0.09406 (95%-conf.int. 0.09406 - 0.09406)
-summaries ROUGE-2 Average_F: 0.09417 (95%-conf.int. 0.09417 - 0.09417)
-
-BINARY - 0.1
----------------------------------------------
-summaries ROUGE-1 Average_R: 0.44472 (95%-conf.int. 0.44472 - 0.44472)
-summaries ROUGE-1 Average_P: 0.43510 (95%-conf.int. 0.43510 - 0.43510)
-summaries ROUGE-1 Average_F: 0.43986 (95%-conf.int. 0.43986 - 0.43986)
----------------------------------------------
-summaries ROUGE-2 Average_R: 0.10422 (95%-conf.int. 0.10422 - 0.10422)
-summaries ROUGE-2 Average_P: 0.10194 (95%-conf.int. 0.10194 - 0.10194)
-summaries ROUGE-2 Average_F: 0.10307 (95%-conf.int. 0.10307 - 0.10307)
