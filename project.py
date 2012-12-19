@@ -298,7 +298,9 @@ def load_collection_tokens(directory):
     return li
 
 def get_pos_tags(sentences):
-    words = word_tokenize(sentences)
+    words = list()
+    for sent in sentences:
+        words.extend(word_tokenize(sentences))
     tags = pos_tag(words)
     return tags
 
@@ -345,7 +347,7 @@ def custom_summarizer(dir, ts_file):
         text += str(summ) + " "
 
     # Word Replacement
-    tags = get_pos_tags([item for sublist in summary for item in sublist])
+    tags = get_pos_tags(summary)
     nv = get_bot_nouns_verbs(tags, get_tag_mapping('en-ptb-modified.map'), 5)
     altNouns = get_alternative_words(dir, nv[0], "noun")
     altVerbs = get_alternative_words(dir, nv[1], "verb")
