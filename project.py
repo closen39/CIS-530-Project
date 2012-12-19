@@ -343,10 +343,9 @@ def custom_summarizer(dir, ts_file):
     for summ in summary:
         text += str(summ) + " "
 
-
+    for word in text:
+        pass
     return text
-
-
 
 def get_tag_mapping(map_file):
     tags = dict()
@@ -355,6 +354,26 @@ def get_tag_mapping(map_file):
         data = line.split("\t")
         tags[data[0]] = data[1].rstrip()
     return tags
+
+def get_func_words(filename):
+    retList = list()
+    f = open(filename)
+    for line in f:
+        retList.append(line.rstrip())
+    return retList
+
+def get_context(dir, words):
+    # funcwords = get_func_words('/home1/c/cis530/hw4/funcwords.txt')
+    funcwords = get_func_words('funcwords.txt')
+    sentences = load_collection_sentences(dir)
+    retDict = {word:set() for word in words}
+    for sent in sentences:
+        for word in words:
+            if word in sent and word not in funcwords:
+                context = [x for x in sent if x != word]
+                for x in context:
+                    retDict[word].add(x)
+    return retDict
 
 def get_random_alternative(word, context, pos):
     wn_pos = wn.VERB
@@ -378,28 +397,8 @@ def get_random_alternative(word, context, pos):
     else:
         return best.name.split('.')[0]
 
-def get_context(dir, words):
-    # funcwords = get_func_words('/home1/c/cis530/hw4/funcwords.txt')
-    funcwords = get_func_words('funcwords.txt')
-    sentences = load_collection_sentences(dir)
-    retDict = {word:set() for word in words}
-    for sent in sentences:
-        for word in words:
-            if word in sent and word not in funcwords:
-                context = [x for x in sent if x != word]
-                for x in context:
-                    retDict[word].add(x)
-    return retDict
-
-def get_func_words(filename):
-    retList = list()
-    f = open(filename)
-    for line in f:
-        retList.append(line.rstrip())
-    return retList
-
-def get_alternative_words(wordlist, tok_sents, pos):
-    context_dict = get_context(wordlist, tok_sents)
+def get_alternative_words(dir, wordlist, pos):
+    context_dict = get_context(dir, wordlist)
     retList = list()
     for word in wordlist:
         alt = get_random_alternative(word, context_dict[word], pos)
@@ -407,7 +406,6 @@ def get_alternative_words(wordlist, tok_sents, pos):
             sim = get_lesk_similarity(word, context_dict[word], alt, context_dict[alt], pos)
         except:
             # Uses context of original word if alt word context not found
-            con = [x[0] for y in tok_sents for x in y]
             sim = get_lesk_similarity(word, context_dict[word], alt, context_dict[word], pos)
         retList.append((word, alt, sim))
     return retList
