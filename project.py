@@ -6,15 +6,16 @@ from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from math import sqrt
 
-def centrality_sum(document):
+def centrality_sum(dir):
     # get sentences of document
-    sentences = sent_tokenize(document)
+    sentences = load_collection_sentences(dir)
+    words = load_collection_tokens(dir)
     diction = dict()
     # keeps track of vectors for each sentence
     vectDict = dict()
     # build the sentence -> centrality dictionary
     for sentence in sentences:
-        sim, vect = get_sim(sentence, document)
+        sim, vect = get_sim(sentence, sentences, words)
         diction[sentence] = sim
         vectDict[sentence] = vect
     # sort sentences in decreasing order
@@ -184,11 +185,9 @@ def valid(sent, summary, vectDict, threshold):
 
 
 
-def get_sim(sentence, doc):
+def get_sim(sentence, sents, words):
     """ gets the centrality of sentence with every sentence in doc
     """
-    sents = sent_tokenize(doc)
-    words = word_tokenize(doc)
     # make vector for sentence
     sent_vec = [0] * len(words)
     for idx, word in enumerate(words):
@@ -237,6 +236,38 @@ def load_topic_words(topic_file):
         x = line.strip().split(' ')
         dict1[x[0]] = float(x[1])
     return dict1
+
+# load all sentences in files within this drectory
+# should return list of sentences
+def load_collection_sentences(directory):
+    files = get_all_files(directory)
+    li = list()
+    for f in files:
+        sents = load_file_sentences(directory + "/" + f)
+        li.extend(sents)
+    return li
+
+# returns a list of all sentences in that file
+def load_file_sentences(filepath):
+    file1 = open(filepath)
+    sent = file1.read()
+    return sent_tokenize(sent)
+
+# returns a list of all tokens in a file
+def load_file_tokens(filepath):
+    file1 = open(filepath)
+    text = file1.read()
+    return word_tokenize(text)
+
+# load all tokens in files within this directory
+# should return list of tokens
+def load_collection_tokens(directory):
+    files = get_all_files(directory)
+    li = list()
+    for f in files:
+        tokens = load_file_tokens(directory + "/" + f)
+        li.extend(tokens)
+    return li
 
 
 if __name__ == '__main__':
