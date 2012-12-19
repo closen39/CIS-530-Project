@@ -5,6 +5,7 @@ from nltk.corpus import PlaintextCorpusReader
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from math import sqrt
+from nltk import pos_tag
 
 def centrality_sum(dir):
     # get sentences of document
@@ -295,6 +296,69 @@ def load_collection_tokens(directory):
         tokens = load_file_tokens(f)
         li.extend(tokens)
     return li
+
+def get_pos_tags(sentences):
+    words = word_tokenize(sentences)
+    tags = pos_tag(words)
+    return tags
+
+def custom_summarizer(dir):
+    """greedily takes first and last sentence and changing some nouns/verbs"""
+    files = get_all_files(dir)
+    sentences = list()
+    for file in files:
+        temp_sents = sent_tokenize(open(file).read())
+        if len(temp_sents) > 0:
+            sentences.append(temp_sents[0])
+            sentences.append(temp_sents[-1])
+    tags = get_pos_tags(sentences)
+
+def get_tag_mapping(map_file):
+    tags = dict()
+    f = open(map_file)
+    for line in f:
+        data = line.split("\t")
+        tags[data[0]] = data[1].rstrip()
+    return tags
+
+def get_random_alternative(word, context, pos):
+    wn_pos = wn.VERB
+    if pos == "noun":
+        wn_pos = wn.NOUN
+
+    synsets = wn.synsets(word)
+    best = find_best_synset(synsets, context, wn_pos)
+    parents = best.hypernyms()
+    children = best.hyponyms()
+    if len(parents) > 0:
+        parent = choice(parents)
+        sibs = parent.hyponyms()
+        sib = choice(sibs)
+        if (len(sibs) > 1):
+            while sib == best:
+                sib = choice(sibs)
+        return sib.name.split('.')[0]
+    elif len(children) > 0:
+        return choice(children).name.split('.')[0]
+    else:
+        return best.name.split('.')[0]
+
+# finds and returns best Synset object
+def find_best_synset(synsets, context, pos):
+    synset_scores = dict()
+    for synset in synsets:
+        if synset.pos != pos:
+            continue
+        vec = [0] * len(context)
+        context_vec = [1] * len(context)
+        definition = synset.definition.lower()
+        for idx, word in enumerate(context):
+            if word in definition:
+                vec[idx] = 1
+        #generate cosine similarity
+        synset_scores[synset] = cosine_similarity(vec, context_vec)
+    #print "synset_scores", synset_scores
+    return max(synset_scores.items(), key=lambda x: x[1])[0]
 
 
 if __name__ == '__main__':
