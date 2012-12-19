@@ -6,6 +6,9 @@ from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from math import sqrt
 from nltk import pos_tag
+from nltk.corpus import wordnet as wn
+from string import replace
+from nltk.probability import FreqDist
 
 def centrality_sum(dir):
     # get sentences of document
@@ -300,7 +303,7 @@ def load_collection_tokens(directory):
 def get_pos_tags(sentences):
     words = list()
     for sent in sentences:
-        words.extend(word_tokenize(sentences))
+        words.extend(word_tokenize(sent))
     tags = pos_tag(words)
     return tags
 
@@ -435,6 +438,7 @@ def get_alternative_words(dir, wordlist, pos):
 
 # finds and returns best Synset object
 def find_best_synset(synsets, context, pos):
+    print synsets, pos, context
     synset_scores = dict()
     for synset in synsets:
         if synset.pos != pos:
