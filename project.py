@@ -304,6 +304,8 @@ def get_pos_tags(sentences):
 
 def custom_summarizer(dir, ts_file):
     """greedily takes first and last sentence and changing some nouns/verbs"""
+    stoplistfile = open('stoplist.txt')
+    stoplist = [line.strip() for line in stoplistfile]
     files = get_all_files(dir)
     topicwords = load_topic_words(ts_file)
     sentences = list()
@@ -351,7 +353,7 @@ def custom_summarizer(dir, ts_file):
         text = replace(text, word, alt, 1)
     for (word, alt, lesk) in altVerbs:
         text = replace(text, word, alt, 1)
-        
+
     return text
 
 def get_bot_nouns_verbs(pos_tags, tagmap, n):
