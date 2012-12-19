@@ -286,16 +286,15 @@ if __name__ == '__main__':
     'input/d31031t_raw', 'input/d31032t_raw', 'input/d31033t_raw', 'input/d31038t_raw', 'input/d31043t_raw',
     'input/d31050t_raw']
     for idx, path in enumerate(filepaths):
-        files = get_all_files(path)
+        #files = get_all_files(path)
         num = "0" + str(idx)
         if idx > 9:
             num = idx
-        outfile = open('rouge/summaries/summary' + str(num) + '.txt', 'w')
-        for file in files:
-            summary = centrality_sum(open(file).read())
-            # summary = topic_word_sum(open(file).read())
-            # summary = lex_rank_sum(open(file).read())
-            outfile.write(summary + "\n")
+        outfile = open('rouge/summaries/summary' + str(num) + '.txt', 'w')            
+        summary = centrality_sum(path)
+        # summary = topic_word_sum(open(file).read())
+        # summary = lex_rank_sum(open(file).read())
+        outfile.write(summary + "\n")
         outfile.close()
 
 
