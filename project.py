@@ -315,9 +315,9 @@ if __name__ == '__main__':
         if idx > 9:
             num = idx
         outfile = open('rouge/summaries/summary' + str(num) + '.txt', 'w')            
-        summary = centrality_sum(path)
-        # summary = topic_word_sum(open(file).read())
-        # summary = lex_rank_sum(open(file).read())
+        # summary = centrality_sum(path)
+        # summary = topic_word_sum(path)
+        summary = lex_rank_sum(path)
         outfile.write(summary + "\n")
         outfile.close()
 
