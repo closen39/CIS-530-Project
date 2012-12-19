@@ -407,7 +407,10 @@ def get_random_alternative(word, context, pos):
         wn_pos = wn.NOUN
 
     synsets = wn.synsets(word)
+    print 'word is ', word, 'pos is ', pos
     best = find_best_synset(synsets, context, wn_pos)
+    if best == None:
+        return word
     parents = best.hypernyms()
     children = best.hyponyms()
     if len(parents) > 0:
@@ -451,8 +454,33 @@ def find_best_synset(synsets, context, pos):
                 vec[idx] = 1
         #generate cosine similarity
         synset_scores[synset] = cosine_similarity(vec, context_vec)
+    if len(synset_scores) == 0:
+        return None
     #print "synset_scores", synset_scores
     return max(synset_scores.items(), key=lambda x: x[1])[0]
+
+def get_lesk_similarity(word1, context1, word2, context2, pos):
+    wn_pos = wn.VERB
+    if pos == 'noun':
+        wn_pos = wn.NOUN
+    # get synsets
+    synset1 = wn.synsets(word1, wn_pos)
+    synset2 = wn.synsets(word2, wn_pos)
+    # print "synset1 = ", synset1, "word1 = ", word1, "pos = ", pos
+    # print "synset2 = ", synset2, "word2 = ", word2, "pos = ", pos
+    best1 = find_best_synset(synset1, context1, wn_pos)
+    best2 = find_best_synset(synset2, context2, wn_pos)
+
+    #get hyponym glosses
+    gloss1 = best1.definition
+    hyp1 = best1.hyponyms()
+    for hyp in hyp1:
+        gloss1 += " " + str(hyp.definition)
+    gloss2 = best2.definition
+    hyp2 = best2.hyponyms()
+    for hyp in hyp2:
+        gloss2 += " " + str(hyp.definition)
+    return calc_gloss_sim(gloss1, gloss2)
 
 
 if __name__ == '__main__':
