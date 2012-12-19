@@ -345,7 +345,7 @@ def custom_summarizer(dir, ts_file):
         text += str(summ) + " "
 
     # Word Replacement
-    tags = get_pos_tags(summary)
+    tags = get_pos_tags([item for sublist in summary for item in sublist])
     nv = get_bot_nouns_verbs(tags, get_tag_mapping('en-ptb-modified.map'), 5)
     altNouns = get_alternative_words(dir, nv[0], "noun")
     altVerbs = get_alternative_words(dir, nv[1], "verb")
