@@ -300,7 +300,7 @@ def load_collection_tokens(directory):
 def get_pos_tags(sentences):
     words = list()
     for sent in sentences:
-        words.extend(word_tokenize(sentences))
+        words.extend(word_tokenize(sent))
     tags = pos_tag(words)
     return tags
 
