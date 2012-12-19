@@ -312,7 +312,6 @@ def custom_summarizer(dir, ts_file):
         if len(temp_sents) > 0:
             sentences.append(temp_sents[0])
             sentences.append(temp_sents[-1])
-    tags = get_pos_tags(sentences)
 
     vecDict = {x:get_sent_vec(x, load_collection_tokens(dir)) for x in sentences}
     scores = dict()
@@ -338,14 +337,30 @@ def custom_summarizer(dir, ts_file):
                 break
             # else, append and continue
             summary.append(sent)
+
+    tags = get_pos_tags(summary)
+    get_bot_nouns_verbs(tags, get_tag_mapping('en-ptb-modified.map'))
     # construct text with sentences
     text = ""
     for summ in summary:
         text += str(summ) + " "
 
+
     for word in text:
         pass
     return text
+
+def get_bot_nouns_verbs(pos_tags, tagmap, n):
+    # get_func_words('/home1/c/cis530/hw4/funcwords.txt')
+    funcwords = get_func_words('funcwords.txt')
+    fdNoun = FreqDist()
+    fdVerb = FreqDist()
+    for (word, tag) in pos_tags:
+        if tagmap[tag] == "VERB" and word not in funcwords and wn.synsets(word):
+            fdVerb.inc(word) 
+        elif tagmap[tag] == "NOUN" and word not in funcwords and wn.synsets(word):
+            fdNoun.inc(word)
+    return (fdNoun.keys()[::-1][:n], fdVerb.keys()[::-1][:n])
 
 def get_tag_mapping(map_file):
     tags = dict()
