@@ -5,6 +5,7 @@ from nltk.corpus import PlaintextCorpusReader
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from math import sqrt
+from nltk import pos_tag
 
 def centrality_sum(dir):
     # get sentences of document
@@ -295,6 +296,155 @@ def load_collection_tokens(directory):
         tokens = load_file_tokens(f)
         li.extend(tokens)
     return li
+
+def get_pos_tags(sentences):
+    words = word_tokenize(sentences)
+    tags = pos_tag(words)
+    return tags
+
+def custom_summarizer(dir, ts_file):
+    """greedily takes first and last sentence and changing some nouns/verbs"""
+    files = get_all_files(dir)
+    topicwords = load_topic_words(ts_file)
+    sentences = list()
+    for file in files:
+        temp_sents = sent_tokenize(open(file).read())
+        if len(temp_sents) > 0:
+            sentences.append(temp_sents[0])
+            sentences.append(temp_sents[-1])
+
+    vecDict = {x:get_sent_vec(x, load_collection_tokens(dir)) for x in sentences}
+    scores = dict()
+    for sent in sentences:
+        scores[sent] = 0
+        # Centrality metric
+        sim = get_sim2(sent, vecDict)
+        scores[sent] += sim
+        # topic word metric
+        words1 = [x for x in word_tokenize(sent) if x in topicwords.keys()]
+        words2 = [x for x in word_tokenize(sent) if x not in stoplist]
+        scores[sent] += float(len(words1)) / float(len(words2))
+
+    # Compile the Summary
+    sorted_sents = sorted(scores.keys(), key=lambda x: scores[x], reverse=True)
+    summary = list()
+    sumLength = 0
+    for sent in sorted_sents:
+        if valid(sent, summary, vecDict, 0.75):
+            sumLength += len(word_tokenize(sent))
+            # break if this pushes us over the threshold
+            if sumLength > 200:
+                break
+            # else, append and continue
+            summary.append(sent)
+    # construct text with sentences
+    text = ""
+    for summ in summary:
+        text += str(summ) + " "
+
+    # Word Replacement
+    tags = get_pos_tags(summary)
+    nv = get_bot_nouns_verbs(tags, get_tag_mapping('en-ptb-modified.map'), 5)
+    altNouns = get_alternative_words(dir, nv[0], "noun")
+    altVerbs = get_alternative_words(dir, nv[1], "verb")
+    for (word, alt, lesk) in altNouns:
+        text = replace(text, word, alt, 1)
+    for (word, alt, lesk) in altVerbs:
+        text = replace(text, word, alt, 1)
+        
+    return text
+
+def get_bot_nouns_verbs(pos_tags, tagmap, n):
+    # get_func_words('/home1/c/cis530/hw4/funcwords.txt')
+    funcwords = get_func_words('funcwords.txt')
+    fdNoun = FreqDist()
+    fdVerb = FreqDist()
+    for (word, tag) in pos_tags:
+        if tagmap[tag] == "VERB" and word not in funcwords and wn.synsets(word):
+            fdVerb.inc(word) 
+        elif tagmap[tag] == "NOUN" and word not in funcwords and wn.synsets(word):
+            fdNoun.inc(word)
+    return (fdNoun.keys()[::-1][:n], fdVerb.keys()[::-1][:n])
+
+def get_tag_mapping(map_file):
+    tags = dict()
+    f = open(map_file)
+    for line in f:
+        data = line.split("\t")
+        tags[data[0]] = data[1].rstrip()
+    return tags
+
+def get_func_words(filename):
+    retList = list()
+    f = open(filename)
+    for line in f:
+        retList.append(line.rstrip())
+    return retList
+
+def get_context(dir, words):
+    # funcwords = get_func_words('/home1/c/cis530/hw4/funcwords.txt')
+    funcwords = get_func_words('funcwords.txt')
+    sentences = load_collection_sentences(dir)
+    retDict = {word:set() for word in words}
+    for sent in sentences:
+        for word in words:
+            if word in sent and word not in funcwords:
+                context = [x for x in sent if x != word]
+                for x in context:
+                    retDict[word].add(x)
+    return retDict
+
+def get_random_alternative(word, context, pos):
+    wn_pos = wn.VERB
+    if pos == "noun":
+        wn_pos = wn.NOUN
+
+    synsets = wn.synsets(word)
+    best = find_best_synset(synsets, context, wn_pos)
+    parents = best.hypernyms()
+    children = best.hyponyms()
+    if len(parents) > 0:
+        parent = choice(parents)
+        sibs = parent.hyponyms()
+        sib = choice(sibs)
+        if (len(sibs) > 1):
+            while sib == best:
+                sib = choice(sibs)
+        return sib.name.split('.')[0]
+    elif len(children) > 0:
+        return choice(children).name.split('.')[0]
+    else:
+        return best.name.split('.')[0]
+
+def get_alternative_words(dir, wordlist, pos):
+    context_dict = get_context(dir, wordlist)
+    retList = list()
+    for word in wordlist:
+        alt = get_random_alternative(word, context_dict[word], pos)
+        try:
+            sim = get_lesk_similarity(word, context_dict[word], alt, context_dict[alt], pos)
+        except:
+            # Uses context of original word if alt word context not found
+            sim = get_lesk_similarity(word, context_dict[word], alt, context_dict[word], pos)
+        retList.append((word, alt, sim))
+    return retList
+
+# finds and returns best Synset object
+def find_best_synset(synsets, context, pos):
+    synset_scores = dict()
+    for synset in synsets:
+        if synset.pos != pos:
+            continue
+        vec = [0] * len(context)
+        context_vec = [1] * len(context)
+        definition = synset.definition.lower()
+        for idx, word in enumerate(context):
+            if word in definition:
+                vec[idx] = 1
+        #generate cosine similarity
+        synset_scores[synset] = cosine_similarity(vec, context_vec)
+    #print "synset_scores", synset_scores
+    return max(synset_scores.items(), key=lambda x: x[1])[0]
 
 
 if __name__ == '__main__':

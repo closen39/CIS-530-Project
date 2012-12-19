@@ -28,7 +28,7 @@ inputDir = /home1/c/cis530/final_project/"""
         text += """==== Output File ====
 outputFile = /home1/j/jmow/school/cis530/project/tws/"""
         text += "topic" + str(idx) + ".ts"
-        out = open("configs/config" + str(idx) + ".example", "w")
+        out = open("/home1/j/jmow/school/cis530/project/configs/config" + str(idx) + ".example", "w")
         out.write(text)
         out.flush()
         out.close()
