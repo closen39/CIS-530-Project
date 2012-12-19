@@ -38,13 +38,14 @@ def centrality_sum(dir):
         text += str(summ) + " "
     return text
            
-def topic_word_sum(document):
+def topic_word_sum(dir):
     # load topic words
     topicwords = load_topic_words('topicwords.ts')
     # read in stoplist file
     stoplistfile = open('stoplist.txt')
     stoplist = [line.strip() for line in stoplistfile]
-    sentences = sent_tokenize(document)
+    sentences = load_collection_sentences(dir)
+    words = load_collection_tokens(dir)
     # dict of sentence -> TWeight
     diction = dict()
     for sent in sentences:
@@ -61,7 +62,7 @@ def topic_word_sum(document):
     sorted_sents = sorted(diction.keys(), key=lambda x: diction[x], reverse=True)
     
     # make vectDict
-    vectDict = makeVectDict(sentences, document)
+    vectDict = makeVectDict(dir)
     summary = list()
     sumLength = 0
     for sent in sorted_sents:
@@ -78,11 +79,11 @@ def topic_word_sum(document):
         text += str(summ) + " "
     return text 
 
-def lex_rank_sum(document):
-    sentences = sent_tokenize(document)
+def lex_rank_sum(dir):
+    sentences = load_collection_sentences(dir)
     adjList = dict()
     currRank = dict()
-    vectDict = makePageRankDict(sentences, document)
+    vectDict = makePageRankDict(dir)
     # vectDict = makeVectDict(sentences, document)
     edge_threshold = 0.01
 
@@ -134,7 +135,9 @@ def notChanging(currRank, nextRank):
             return False
     return True
 
-def makePageRankDict(sentences, document):
+def makePageRankDict(dir):
+    sentences = load_collection_sentences(dir)
+    words = load_collection_tokens(dir)
     vecDict = dict()
     lookup = dict()
     for line in open('bgIdfValues.unstemmed.txt'):
@@ -142,7 +145,6 @@ def makePageRankDict(sentences, document):
         if len(data) == 1:
             continue
         lookup[data[0]] = float(data[1])
-    words = word_tokenize(document)
     for sentence in sentences:
         sent_vec = [0.0] * len(words)
         for idx, word in enumerate(words):
@@ -151,9 +153,10 @@ def makePageRankDict(sentences, document):
         vecDict[sentence] = sent_vec
     return vecDict
 
-def makeVectDict(sentences, document):
+def makeVectDict(dir):
     vectDict = dict()
-    words = word_tokenize(document)
+    words = load_collection_tokens(dir)
+    sentences = load_collection_sentences(dir)
     # make vector for sentence
     for sentence in sentences:
         sent_vec = [0] * len(words)
@@ -243,7 +246,7 @@ def load_collection_sentences(directory):
     files = get_all_files(directory)
     li = list()
     for f in files:
-        sents = load_file_sentences(directory + "/" + f)
+        sents = load_file_sentences(f)
         li.extend(sents)
     return li
 
@@ -265,7 +268,7 @@ def load_collection_tokens(directory):
     files = get_all_files(directory)
     li = list()
     for f in files:
-        tokens = load_file_tokens(directory + "/" + f)
+        tokens = load_file_tokens(f)
         li.extend(tokens)
     return li
 
