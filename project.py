@@ -337,17 +337,21 @@ def custom_summarizer(dir, ts_file):
                 break
             # else, append and continue
             summary.append(sent)
-
-    tags = get_pos_tags(summary)
-    get_bot_nouns_verbs(tags, get_tag_mapping('en-ptb-modified.map'))
     # construct text with sentences
     text = ""
     for summ in summary:
         text += str(summ) + " "
 
-
-    for word in text:
-        pass
+    # Word Replacement
+    tags = get_pos_tags(summary)
+    nv = get_bot_nouns_verbs(tags, get_tag_mapping('en-ptb-modified.map'), 5)
+    altNouns = get_alternative_words(dir, nv[0], "noun")
+    altVerbs = get_alternative_words(dir, nv[1], "verb")
+    for (word, alt, lesk) in altNouns:
+        text = replace(text, word, alt, 1)
+    for (word, alt, lesk) in altVerbs:
+        text = replace(text, word, alt, 1)
+        
     return text
 
 def get_bot_nouns_verbs(pos_tags, tagmap, n):
