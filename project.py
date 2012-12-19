@@ -13,11 +13,15 @@ def centrality_sum(dir):
     diction = dict()
     # keeps track of vectors for each sentence
     vectDict = dict()
+    for sentence in sentences:
+        vectDict[sentence] = get_sent_vec(sentence, words)
     # build the sentence -> centrality dictionary
     for sentence in sentences:
-        sim, vect = get_sim(sentence, sentences, words)
+        #sim, vect = get_sim(sentence, sentences, words)
+        #diction[sentence] = sim
+        #vectDict[sentence] = vect
+        sim = get_sim2(sentence, vectDict)
         diction[sentence] = sim
-        vectDict[sentence] = vect
     # sort sentences in decreasing order
     sorted_sents = sorted(diction.keys(), key=lambda x: diction[x], reverse=True)
     
@@ -187,6 +191,19 @@ def valid(sent, summary, vectDict, threshold):
     return True
 
 
+def get_sim2(sentence, vectDict):
+    """gets the centrality of sentence with every sentence in vector form"""
+    sum_of_sims = 0.0
+    sent_vec = vectDict[sentence]
+    for vec in vectDict.values():
+        sim = cosine_similarity(sent_vec, vec)
+        # if compared with itself, don't add
+        if sim == 1:
+            continue
+        else:
+            sum_of_sims += sim
+    return sum_of_sims / len(vectDict.values())
+
 
 def get_sim(sentence, sents, words):
     """ gets the centrality of sentence with every sentence in doc
@@ -209,6 +226,13 @@ def get_sim(sentence, sents, words):
             sum_of_sims += cosine_similarity(sent_vec, temp_vec)
     return sum_of_sims / len(sents), sent_vec
 
+def get_sent_vec(sentence, words):
+    sent_vec = [0] * len(words)
+    for idx, word in enumerate(words):
+        if word in sentence:
+            # binary representation for now
+            sent_vec[idx] = 1
+    return sent_vec
 
 
 
