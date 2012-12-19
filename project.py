@@ -396,7 +396,7 @@ def get_context(dir, words):
     for sent in sentences:
         for word in words:
             if word in sent and word not in funcwords:
-                context = [x for x in sent if x != word]
+                context = [x for x in word_tokenize(sent) if x != word]
                 for x in context:
                     retDict[word].add(x)
     return retDict
