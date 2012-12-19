@@ -243,7 +243,7 @@ def load_collection_sentences(directory):
     files = get_all_files(directory)
     li = list()
     for f in files:
-        sents = load_file_sentences(directory + "/" + f)
+        sents = load_file_sentences(f)
         li.extend(sents)
     return li
 
@@ -265,7 +265,7 @@ def load_collection_tokens(directory):
     files = get_all_files(directory)
     li = list()
     for f in files:
-        tokens = load_file_tokens(directory + "/" + f)
+        tokens = load_file_tokens(f)
         li.extend(tokens)
     return li
 
