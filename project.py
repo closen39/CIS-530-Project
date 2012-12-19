@@ -28,7 +28,7 @@ def centrality_sum(dir):
         if valid(sent, summary, vectDict, 0.75):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
-            if sumLength > 100:
+            if sumLength > 200:
                 break
             # else, append and continue
             summary.append(sent)
@@ -69,7 +69,7 @@ def topic_word_sum(dir):
         if valid(sent, summary, vectDict, 0.75):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
-            if sumLength > 100:
+            if sumLength > 200:
                 break
             # else, append and continue
             summary.append(sent)
@@ -118,7 +118,7 @@ def lex_rank_sum(dir):
         if valid(sent, summary, vectDict, 0.75):
             sumLength += len(word_tokenize(sent))
             # break if this pushes us over the threshold
-            if sumLength > 100:
+            if sumLength > 200:
                 break
             # else, append and continue
             summary.append(sent)
