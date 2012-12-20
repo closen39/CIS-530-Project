@@ -470,7 +470,8 @@ def get_lesk_similarity(word1, context1, word2, context2, pos):
     # print "synset2 = ", synset2, "word2 = ", word2, "pos = ", pos
     best1 = find_best_synset(synset1, context1, wn_pos)
     best2 = find_best_synset(synset2, context2, wn_pos)
-
+    if best1 == None or best2 == None:
+        return 0
     #get hyponym glosses
     gloss1 = best1.definition
     hyp1 = best1.hyponyms()
