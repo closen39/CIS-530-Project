@@ -1,7 +1,7 @@
 <ROUGE-EVAL version="1.0">
 <EVAL ID="1">
 <PEER-ROOT>
-summaries
+baseline
 </PEER-ROOT>
 <MODEL-ROOT>
 models
