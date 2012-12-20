@@ -47,9 +47,9 @@ def centrality_sum(dir):
         text += str(summ) + " "
     return text
            
-def topic_word_sum(dir):
+def topic_word_sum(dir, ts_file):
     # load topic words
-    topicwords = load_topic_words('topicwords.ts')
+    topicwords = load_topic_words(ts_file)
     # read in stoplist file
     stoplistfile = open('stoplist.txt')
     stoplist = [line.strip() for line in stoplistfile]
@@ -520,10 +520,10 @@ if __name__ == '__main__':
         num = "0" + str(idx)
         if idx > 9:
             num = idx
-        outfile = open('rouge/summaries2/summary' + str(num) + '.txt', 'w')            
+        outfile = open('rouge/summaries/summary' + str(num) + '.txt', 'w')            
         # summary = centrality_sum(path)
-        # summary = topic_word_sum(path)
-        summary = lex_rank_sum(path)
+        summary = topic_word_sum(path, 'tws/topic' + str(idx) + '.ts')
+        # summary = lex_rank_sum(path)
         outfile.write(summary + "\n")
         outfile.close()
 
