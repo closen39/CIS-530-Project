@@ -515,28 +515,16 @@ if __name__ == '__main__':
     'input/d31008t_raw', 'input/d31009t_raw', 'input/d31013t_raw', 'input/d31022t_raw', 'input/d31026t_raw',
     'input/d31031t_raw', 'input/d31032t_raw', 'input/d31033t_raw', 'input/d31038t_raw', 'input/d31043t_raw',
     'input/d31050t_raw']
+
     for idx, path in enumerate(filepaths):
-        #files = get_all_files(path)
         num = "0" + str(idx)
         if idx > 9:
             num = idx
-        outfile = open('rouge/tempSummaries/summary' + str(num) + '.txt', 'w')            
-        # summary = centrality_sum(path)
-        # summary = topic_word_sum(path, 'tws/topic' + str(idx) + '.ts')
-        # summary = lex_rank_sum(path)
-        # summary = topic_word_sum(path)
-        # summary = lex_rank_sum(path)
         topicFile = 'tws/topic' + str(idx) + '.ts'
+        outfile = open('summaries/summary' + str(num) + '.txt', 'w')
+        # summary = centrality_sum(path)
+        # summary = topic_word_sum(path, topicFile)
+        # summary = lex_rank_sum(path)
         summary = custom_summarizer(path, topicFile)
         outfile.write(summary + "\n")
         outfile.close()
-
-
-        # files = get_all_files('input/d30001t_raw')
-        # outfile = open('rouge/summaries/summary00.txt', 'w')
-        # for file in files:
-        #     # summary = centrality_sum(open(file).read())
-        #     # summary = topic_word_sum(open(file).read())
-        #     summary = lex_rank_sum(open(file).read())
-        #     outfile.write(summary + "\n")
-        # outfile.close()

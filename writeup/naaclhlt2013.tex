@@ -119,4 +119,15 @@ When tested with the corpus from the initial directory (as was done with the ear
 
 \section{Discussion and Analysis}
 We have extensively discussed our design decisions and perceived performance tradeoffs between the standard and our own custom summarizer above, as we've presented the background and data of our implementations and tests.
+
+\section{Functionality - How to Use}
+In order to use our {\tt project.py} file to generate summaries, the following functions can be called:
+\begin{itemize}
+\item {\tt centrality\_sum(path)}
+\item {\tt topic\_word\_sum(path, topicFile)}
+\item {\tt lex\_rank\_sum(path)}
+\end{itemize}
+
+These method calls have been placed in our main method with references to the provided input files (copied locally into our repository for convenience). The summarizers may be run by simply commenting / uncommenting the appropriate lines in the provided main function of {\tt project.py}.
+
 \end{document}
