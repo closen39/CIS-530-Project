@@ -67,6 +67,13 @@ Our LexRank End Criteria was set such that the iteration would end if all values
 Our sentence length limit was between 15 and 50 words, tokenized by NLTK. We mitigated redundancy by rejecting any sentences with a cosine similarity greater than 0.75 with any sentence already in the summary. Again, these thresholds were chosen as they yielded the most sensible and well-scoring results from our trials.
 
 \subsection{Performance}
+\vskip 0.5em
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  System & Centroid & Topic-word & LexPageRank \\ \hline
+  Rouge-2 Recall & *.** & *.** & *.** \\
+  \hline
+\end{tabular}
 
 \section{Custom Summarization System}
 \subsection{System Design}
