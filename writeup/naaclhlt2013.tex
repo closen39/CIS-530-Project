@@ -68,6 +68,7 @@ Our sentence length limit was between 15 and 50 words, tokenized by NLTK. We mit
 
 \subsection{Performance}
 Initial testing was done using only the files in the ``input/d30001t\_raw'' directory. This was done primarily for speed and ease, though we found that our results in these tests did not correlate particularly well with our scores using the whole 50-directory corpus.
+\begin{table}[htb!]
 \vskip 0.5em
 \begin{tabular}{|c|c|c|}
   \hline
@@ -75,12 +76,28 @@ Initial testing was done using only the files in the ``input/d30001t\_raw'' dire
   Centroid & 0.11414 &0.44226\\ \hline
   Topic-word & 0.10670 & 0.43735\\ \hline
   LexPageRank & 0.11911 & 0.43243\\ \hline
+
 \end{tabular}
+  \caption{Single Directory}
+\end{table}
 
 The above recall score for Topic-word was obtained using a topicWordCutoff of 12.5. We intended to use this score for the full scale trials, however the time required to regenerate these files for the full corpus was too much.
 
 As a comparison, running the baseline summaries of the files in the same corpus yielded a Rouge-2 Recall score of 0.09926 and a Rouge-1 Recall score of 0.41278. As you can see, all three of our summarization implementations out performed the baseline for files in this directory.
+\begin{table}[htb!]
+\vskip 0.5em
+\begin{tabular}{|c|c|c|}
+  \hline
+  System & Rouge-2 Rec & Rouge-1 Rec\\ \hline
+  Centroid & N/A &0N/A\\ \hline
+  Topic-word & 0.03547 & 0.2916\\ \hline
+  LexPageRank & N/A & N/A\\ \hline
 
+\end{tabular}
+  \caption{Full Corpus}
+\end{table}
+
+As you can see, we were unable to generate full corpus summaries for the LexPageRank summarizer due to time constraints. At the time of writing, the summarizer had been running for four hours. We simply did not anticipate the amount of time required to generate the final summaries, and hope that our preliminary results are sufficient.
 
 \section{Custom Summarization System}
 \subsection{System Design}
