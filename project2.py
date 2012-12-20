@@ -520,7 +520,7 @@ if __name__ == '__main__':
         num = "0" + str(idx)
         if idx > 9:
             num = idx
-        outfile = open('rouge/summaries/summary' + str(num) + '.txt', 'w')            
+        outfile = open('rouge/summaries2/summary' + str(num) + '.txt', 'w')            
         # summary = centrality_sum(path)
         summary = topic_word_sum(path, 'tws/topic' + str(idx) + '.ts')
         # summary = lex_rank_sum(path)
