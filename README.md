@@ -124,12 +124,12 @@ summaries ROUGE-2 Average_R: 0.04664 (95%-conf.int. 0.04004 - 0.05357)
 summaries ROUGE-2 Average_P: 0.04651 (95%-conf.int. 0.04001 - 0.05331)
 summaries ROUGE-2 Average_F: 0.04657 (95%-conf.int. 0.04002 - 0.05344)
 
-Topic Word Summarizer
----------------------
-summaries ROUGE-1 Average_R: 0.29869 (95%-conf.int. 0.28787 - 0.31173)
-summaries ROUGE-1 Average_P: 0.29664 (95%-conf.int. 0.28636 - 0.30836)
-summaries ROUGE-1 Average_F: 0.29762 (95%-conf.int. 0.28713 - 0.31005)
+Topic Word Summarizer - Updated
 ---------------------------------------------
-summaries ROUGE-2 Average_R: 0.04404 (95%-conf.int. 0.03749 - 0.05051)
-summaries ROUGE-2 Average_P: 0.04357 (95%-conf.int. 0.03710 - 0.04991)
-summaries ROUGE-2 Average_F: 0.04380 (95%-conf.int. 0.03729 - 0.05020)
+topicSummaries ROUGE-1 Average_R: 0.29160 (95%-conf.int. 0.28201 - 0.30077)
+topicSummaries ROUGE-1 Average_P: 0.29624 (95%-conf.int. 0.28625 - 0.30619)
+topicSummaries ROUGE-1 Average_F: 0.29389 (95%-conf.int. 0.28400 - 0.30344)
+---------------------------------------------
+topicSummaries ROUGE-2 Average_R: 0.03547 (95%-conf.int. 0.03096 - 0.04023)
+topicSummaries ROUGE-2 Average_P: 0.03609 (95%-conf.int. 0.03152 - 0.04101)
+topicSummaries ROUGE-2 Average_F: 0.03577 (95%-conf.int. 0.03124 - 0.04061)
