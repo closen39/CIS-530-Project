@@ -68,30 +68,52 @@ Our sentence length limit was between 15 and 50 words, tokenized by NLTK. We mit
 
 \subsection{Performance}
 Initial testing was done using only the files in the ``input/d30001t\_raw'' directory. This was done primarily for speed and ease, though we found that our results in these tests did not correlate particularly well with our scores using the whole 50-directory corpus.
+\begin{table}[htb!]
 \vskip 0.5em
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|}
   \hline
-  System & Centroid & Topic-word & LexPageRank \\ \hline
-  Rouge-2 Recall & 0.11414 & 0.10670 & 0.11911 \\
-  \hline
+  System & Rouge-2 Rec & Rouge-1 Rec\\ \hline
+  Centroid & 0.11414 &0.44226\\ \hline
+  Topic-word & 0.10670 & 0.43735\\ \hline
+  LexPageRank & 0.11911 & 0.43243\\ \hline
+
 \end{tabular}
+  \caption{Single Directory}
+\end{table}
 
 The above recall score for Topic-word was obtained using a topicWordCutoff of 12.5. We intended to use this score for the full scale trials, however the time required to regenerate these files for the full corpus was too much.
 
-As a comparison, running the baseline summaries of the files in the same corpus yielded a Rouge-2 Recall score of 0.09926. As you can see, all three of our summarization implementations out performed the baseline for files in this directory.
+As a comparison, running the baseline summaries of the files in the same corpus yielded a Rouge-2 Recall score of 0.09926 and a Rouge-1 Recall score of 0.41278. As you can see, all three of our summarization implementations out performed the baseline for files in this directory.
+\begin{table}[htb!]
+\vskip 0.5em
+\begin{tabular}{|c|c|c|}
+  \hline
+  System & Rouge-2 Rec & Rouge-1 Rec\\ \hline
+  Centroid & N/A & N/A\\ \hline
+  Topic-word & 0.03547 & 0.2916\\ \hline
+  LexPageRank & N/A & N/A\\ \hline
 
+\end{tabular}
+  \caption{Full Corpus}
+\end{table}
+
+As you can see, we were unable to generate full corpus summaries for the LexPageRank summarizer due to time constraints. At the time of writing, the summarizer had been running for four hours. We simply did not anticipate the amount of time required to generate the final summaries, and hope that our preliminary results are sufficient.
 
 \section{Custom Summarization System}
 \subsection{System Design}
-This part shows general idea of your system. You may use flowchart, graphics or pseudo-code to de-scribe your algorithm.
+Our system was designed to take advantage of tools that we have learned about, implemented, and used this semester to generate a custom summarizer based on our own heuristics. In designing our system, we decided to emulate and extend the functionality of a summarizer we are aware works quite well - the first sentence of each input document.
+
+The summarization system extracts the first and last sentences of each input document. This expands the corpus from the aforementioned summarizer to be considered for our final summary.
+
+Once the candidate sentences have been collected, they are assigned scores based on their similarity (much like in the Centroid Summarizer) and their use of topic words (much like the Topic Word Summarizer). It is important to note that the centroid and topic words referenced are with regards to all sentences in the corpus, not just our selected subset. This ensures that the selected sentences will be scored based on their reprsentation of the entire text, and not just the limited selection we have started with.
+
+The scored sentences are then considered for validity and processed for word replacement. The final portion of our custom summarizer replaces the least frequent nouns and verbs with replacement synonyms. This was an attempt to delve in the abstractive summarization realm whereas our previously implemented summarizers had all been extractive. We believe that the quality and readability of the summary can be improved by replacing some of these words. At the same time, we opted to replace infrequent words rather than very frequent words as it would have put the clarity of key ideas and concepts in our summary at risk.
+
 \subsection{Resources \& Tools Used}
-What resources or tools you have used and how they are included in your implementations. 
+The tools that we utilized for our custom parser included various NLTK modules for basic parsing and word manipulation, the NLTK WordNet module, the NLTK part-of-speech tagging module.
 
-Example: Wordnet, Stanford-Parser, MPQA.
+The WordNet module was used to find SynSets and synonyms that were viable for replacement in our summaries. Likewise the POS tagging module was also used in order to find strong matches amongst synonyms being considered to replace words in the summary. These tools were very valuable and allowed us to explore the possibility of incorporating abstractive concepts and strategies in summarization.
 
-I use Stanford-Parser in order to help…
 \subsection{Performance}
-
-\section{Discussion and Analysis}
-
+When tested with the corpus from the initial directory (as was done with the earlier summarizers) gave a Rouge-2 Recall score of 0.04963. Curiously, when run with the full corpus, our custom summarizer outperforms all of our other ones, achieving a Rouge-2 Recall score of 0.05882.
 \end{document}
