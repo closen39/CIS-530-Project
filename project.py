@@ -9,6 +9,7 @@ from nltk import pos_tag
 from nltk.corpus import wordnet as wn
 from string import replace
 from nltk.probability import FreqDist
+from random import choice, seed
 
 def centrality_sum(dir):
     # get sentences of document
@@ -409,7 +410,7 @@ def get_random_alternative(word, context, pos):
     synsets = wn.synsets(word)
     print 'word is ', word, 'pos is ', pos
     best = find_best_synset(synsets, context, wn_pos)
-    if best == None:
+    if best is None:
         return word
     parents = best.hypernyms()
     children = best.hyponyms()
@@ -470,7 +471,7 @@ def get_lesk_similarity(word1, context1, word2, context2, pos):
     # print "synset2 = ", synset2, "word2 = ", word2, "pos = ", pos
     best1 = find_best_synset(synset1, context1, wn_pos)
     best2 = find_best_synset(synset2, context2, wn_pos)
-    if best1 == None or best2 == None:
+    if best1 is None or best2 is None:
         return 0
     #get hyponym glosses
     gloss1 = best1.definition
@@ -482,6 +483,24 @@ def get_lesk_similarity(word1, context1, word2, context2, pos):
     for hyp in hyp2:
         gloss2 += " " + str(hyp.definition)
     return calc_gloss_sim(gloss1, gloss2)
+
+def calc_gloss_sim(gloss1, gloss2):
+    count = 0
+    visited = set(get_func_words('funcwords.txt'))
+    # calculate length 2
+    gloss1_list = word_tokenize(gloss1)
+    for idx, word in enumerate(gloss1_list):
+        if idx + 1 < len(gloss1_list) and word not in visited and gloss1_list[idx + 1] not in visited:
+            if str(word) + " " + str(gloss1_list[idx + 1]) in gloss2:
+                count += 4
+                visited.add(word)
+                visited.add(gloss1_list[idx + 1])
+    # calculate length 1
+    for word in word_tokenize(gloss1):
+        if word not in visited and word in gloss2:
+            count += 1
+            visited.add(word)
+    return count
 
 
 if __name__ == '__main__':
