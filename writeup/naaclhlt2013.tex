@@ -89,15 +89,15 @@ As a comparison, running the baseline summaries of the files in the same corpus 
 \begin{tabular}{|c|c|c|}
   \hline
   System & Rouge-2 Rec & Rouge-1 Rec\\ \hline
-  Centroid & N/A & N/A\\ \hline
+  Centroid & 0.04409 & 0.30884\\ \hline
   Topic-word & 0.03547 & 0.2916\\ \hline
-  LexPageRank & N/A & N/A\\ \hline
+  LexPageRank & 0.6987 & 0.34126\\ \hline
 
 \end{tabular}
   \caption{Full Corpus}
 \end{table}
 
-As you can see, we were unable to generate full corpus summaries for the LexPageRank summarizer due to time constraints. At the time of writing, the summarizer had been running for four hours. We simply did not anticipate the amount of time required to generate the final summaries, and hope that our preliminary results are sufficient.
+Unfortunately, these scores were generated from only a subset of the full corpus. For the centroid summarizer, 43 summaries were used. For the Topic-word summarizer, all 50 summaries were used. For the LexPageRank summarizer, however, only 14 summaries were used. We were unable to complete the full generation of files in some cases due to time constraints (in the case of the LexPageRank, our program had run for 4 hours already).
 
 \section{Custom Summarization System}
 \subsection{System Design}
@@ -115,5 +115,5 @@ The tools that we utilized for our custom parser included various NLTK modules f
 The WordNet module was used to find SynSets and synonyms that were viable for replacement in our summaries. Likewise the POS tagging module was also used in order to find strong matches amongst synonyms being considered to replace words in the summary. These tools were very valuable and allowed us to explore the possibility of incorporating abstractive concepts and strategies in summarization.
 
 \subsection{Performance}
-When tested with the corpus from the initial directory (as was done with the earlier summarizers) gave a Rouge-2 Recall score of 0.04963 and a Rouge-1 Recall score of 0.32187. Curiously, when run with the full corpus, our custom summarizer outperforms all of our other ones, achieving a Rouge-2 Recall score of 0.05882 and a Rouge-1 Recall score of 0.32896.
+When tested with the corpus from the initial directory (as was done with the earlier summarizers) gave a Rouge-2 Recall score of 0.04963 and a Rouge-1 Recall score of 0.32187. Curiously, when run with the full corpus of all 50 summaries, our custom summarizer outperforms all of our other ones except LexPageRank, achieving a Rouge-2 Recall score of 0.05882 and a Rouge-1 Recall score of 0.32896.
 \end{document}
