@@ -133,3 +133,13 @@ topicSummaries ROUGE-1 Average_F: 0.29389 (95%-conf.int. 0.28400 - 0.30344)
 topicSummaries ROUGE-2 Average_R: 0.03547 (95%-conf.int. 0.03096 - 0.04023)
 topicSummaries ROUGE-2 Average_P: 0.03609 (95%-conf.int. 0.03152 - 0.04101)
 topicSummaries ROUGE-2 Average_F: 0.03577 (95%-conf.int. 0.03124 - 0.04061)
+
+Lex Rank Summaries (14 documents)
+---------------------------------------------
+lexRankSummaries ROUGE-1 Average_R: 0.34126 (95%-conf.int. 0.31355 - 0.36788)
+lexRankSummaries ROUGE-1 Average_P: 0.33771 (95%-conf.int. 0.31047 - 0.36270)
+lexRankSummaries ROUGE-1 Average_F: 0.33944 (95%-conf.int. 0.31237 - 0.36471)
+---------------------------------------------
+lexRankSummaries ROUGE-2 Average_R: 0.06987 (95%-conf.int. 0.05519 - 0.08766)
+lexRankSummaries ROUGE-2 Average_P: 0.06883 (95%-conf.int. 0.05442 - 0.08544)
+lexRankSummaries ROUGE-2 Average_F: 0.06934 (95%-conf.int. 0.05474 - 0.08664)
