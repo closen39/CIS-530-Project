@@ -67,13 +67,19 @@ Our LexRank End Criteria was set such that the iteration would end if all values
 Our sentence length limit was between 15 and 50 words, tokenized by NLTK. We mitigated redundancy by rejecting any sentences with a cosine similarity greater than 0.75 with any sentence already in the summary. Again, these thresholds were chosen as they yielded the most sensible and well-scoring results from our trials.
 
 \subsection{Performance}
+Initial testing was done using only the files in the ``input/d30001t\_raw'' directory. This was done primarily for speed and ease, though we found that our results in these tests did not correlate particularly well with our scores using the whole 50-directory corpus.
 \vskip 0.5em
 \begin{tabular}{|c|c|c|c|}
   \hline
   System & Centroid & Topic-word & LexPageRank \\ \hline
-  Rouge-2 Recall & *.** & *.** & *.** \\
+  Rouge-2 Recall & 0.11414 & 0.10670 & 0.11911 \\
   \hline
 \end{tabular}
+
+The above recall score for Topic-word was obtained using a topicWordCutoff of 12.5. We intended to use this score for the full scale trials, however the time required to regenerate these files for the full corpus was too much.
+
+As a comparison, running the baseline summaries of the files in the same corpus yielded a Rouge-2 Recall score of 0.09926. As you can see, all three of our summarization implementations out performed the baseline for files in this directory.
+
 
 \section{Custom Summarization System}
 \subsection{System Design}
