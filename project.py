@@ -93,7 +93,7 @@ def lex_rank_sum(dir):
     currRank = dict()
     vectDict = makePageRankDict(dir)
     # vectDict = makeVectDict(sentences, document)
-    edge_threshold = 0.01
+    edge_threshold = 0.2
 
     for idx,sent in enumerate(sentences):
         adjList[idx] = list()
@@ -409,7 +409,7 @@ def get_random_alternative(word, context, pos):
     synsets = wn.synsets(word)
     print 'word is ', word, 'pos is ', pos
     best = find_best_synset(synsets, context, wn_pos)
-    if best == None:
+    if best is None:
         return word
     parents = best.hypernyms()
     children = best.hyponyms()
@@ -497,8 +497,6 @@ if __name__ == '__main__':
     'input/d31031t_raw', 'input/d31032t_raw', 'input/d31033t_raw', 'input/d31038t_raw', 'input/d31043t_raw',
     'input/d31050t_raw']
     for idx, path in enumerate(filepaths):
-	if idx < 13:
-	    continue
         #files = get_all_files(path)
         num = "0" + str(idx)
         if idx > 9:
