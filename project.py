@@ -408,7 +408,7 @@ def get_random_alternative(word, context, pos):
         wn_pos = wn.NOUN
 
     synsets = wn.synsets(word)
-    print 'word is ', word, 'pos is ', pos
+    #print 'word is ', word, 'pos is ', pos
     best = find_best_synset(synsets, context, wn_pos)
     if best is None:
         return word
@@ -442,7 +442,7 @@ def get_alternative_words(dir, wordlist, pos):
 
 # finds and returns best Synset object
 def find_best_synset(synsets, context, pos):
-    print synsets, pos, context
+    #print synsets, pos, context
     synset_scores = dict()
     for synset in synsets:
         if synset.pos != pos:
@@ -520,10 +520,14 @@ if __name__ == '__main__':
         num = "0" + str(idx)
         if idx > 9:
             num = idx
-        outfile = open('rouge/summaries/summary' + str(num) + '.txt', 'w')            
+        outfile = open('rouge/tempSummaries/summary' + str(num) + '.txt', 'w')            
         # summary = centrality_sum(path)
-        summary = topic_word_sum(path, 'tws/topic' + str(idx) + '.ts')
+        # summary = topic_word_sum(path, 'tws/topic' + str(idx) + '.ts')
         # summary = lex_rank_sum(path)
+        # summary = topic_word_sum(path)
+        # summary = lex_rank_sum(path)
+        topicFile = 'tws/topic' + str(idx) + '.ts'
+        summary = custom_summarizer(path, topicFile)
         outfile.write(summary + "\n")
         outfile.close()
 
