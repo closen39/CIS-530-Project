@@ -526,6 +526,7 @@ if __name__ == '__main__':
         # summary = lex_rank_sum(path)
         outfile.write(summary + "\n")
         outfile.close()
+        print "Done with file" + str(idx)
 
 
         # files = get_all_files('input/d30001t_raw')
