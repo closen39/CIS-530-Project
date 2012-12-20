@@ -1,14 +1,14 @@
 # Jason Mow (jmow@seas.upenn.edu)
 # Nate Close (closen@seas.upenn.edu)
 
+from math import sqrt
 from nltk.corpus import PlaintextCorpusReader
+from nltk.corpus import wordnet as wn
+from nltk.probability import FreqDist
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
-from math import sqrt
 from nltk import pos_tag
-from nltk.corpus import wordnet as wn
 from string import replace
-from nltk.probability import FreqDist
 from random import choice, seed
 
 def centrality_sum(dir):
